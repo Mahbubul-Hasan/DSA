@@ -7,7 +7,11 @@ function isPowerOfTwo(n: number): boolean {
   return false;
 }
 
-console.log("🚀 ~ isPowerOfTwo:", isPowerOfTwo(1));
-console.log("🚀 ~ isPowerOfTwo:", isPowerOfTwo(4));
-console.log("🚀 ~ isPowerOfTwo:", isPowerOfTwo(16));
-console.log("🚀 ~ isPowerOfTwo:", isPowerOfTwo(3));
+function isPowerOfTwoV2(n: number): boolean {
+  return n > 0 && (n & (n - 1)) == 0;
+}
+
+console.log("🚀 ~ isPowerOfTwoV2:", isPowerOfTwoV2(1));
+console.log("🚀 ~ isPowerOfTwoV2:", isPowerOfTwoV2(4));
+console.log("🚀 ~ isPowerOfTwoV2:", isPowerOfTwoV2(16));
+console.log("🚀 ~ isPowerOfTwoV2:", isPowerOfTwoV2(3));
