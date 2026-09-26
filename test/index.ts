@@ -1,22 +1,15 @@
-function search(arr: number[], target: number): number {
-  function helper(start: number, end: number): number {
-    if (start > end) return -1;
-    const mid = Math.floor((start + end) / 2);
+function triangle(n: number) {
+  function helper(row: number, col: number) {
+    if (row == n) return;
 
-    if (arr[mid] == target) return mid;
-
-    if (arr[start] <= arr[mid]) {
-      if (arr[mid] >= target) end = mid - 1;
-      else start = mid + 1;
+    if (col <= row) {
+      helper(row, ++col);
+      process.stdout.write("* ");
     } else {
-      if (arr[mid] <= target) start = mid + 1;
-      else end = mid - 1;
+      helper(++row, 0);
+      console.log();
     }
-
-    return helper(start, end);
   }
-
-  return helper(0, arr.length - 1);
+  helper(0, 0);
 }
-
-console.log("🚀 ~ search:", search([9, 8, 7, 1, 2, 3, 4], 3));
+triangle(4);
