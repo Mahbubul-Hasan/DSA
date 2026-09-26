@@ -2,12 +2,12 @@ function triangle(n: number) {
   function helper(row: number, col: number) {
     if (row == n) return;
 
-    if (col <= row) {
-      helper(row, ++col);
+    if (col <= n - 1 - row) {
       process.stdout.write("* ");
+      helper(row, ++col);
     } else {
-      helper(++row, 0);
       console.log();
+      helper(++row, 0);
     }
   }
   helper(0, 0);
