@@ -1,18 +1,38 @@
-function bubbleSort(arr: number[]): number[] {
+function mergeSort(arr: number[]): number[] {
   const n = arr.length;
-  function helper(row: number, col: number): number[] {
-    if (row == n) return arr;
+  function helper(nums: number[]): number[] {
+    const length = nums.length;
+    if (length <= 1) return nums;
 
-    if (col < n - 1) {
-      if (arr[col] > arr[col + 1]) {
-        [arr[col], arr[col + 1]] = [arr[col + 1], arr[col]];
-      }
-      helper(row, ++col);
-    } else helper(++row, 0);
+    const mid = Math.floor(length / 2);
+    const left = helper(nums.slice(0, mid));
+    const right = helper(nums.slice(mid));
 
-    return arr;
+    return merge(left, right);
   }
-  return helper(0, 0);
+
+  function merge(left: number[], right: number[]): number[] {
+    let i = 0;
+    let j = 0;
+    let k = 0;
+
+    const newArr: number[] = [];
+    while (i < left.length && j < right.length) {
+      if (left[i] < right[j]) {
+        newArr[k++] = left[i++];
+      } else newArr[k++] = right[j++];
+    }
+    // return [...newArr, ...left.slice(i), ...right.slice(j)];
+    
+    while (i < left.length) {
+      newArr[k++] = left[i++];
+    }
+    while (j < right.length) {
+      newArr[k++] = left[j++];
+    }
+    return newArr;
+  }
+  return helper(arr);
 }
 
-console.log("🚀 ~ bubbleSort:", bubbleSort([4, 3, 2, 1]));
+console.log("🚀 ~ mergeSort:", mergeSort([5, 4, 3, 2, 1]));
