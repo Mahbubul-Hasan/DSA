@@ -1,38 +1,40 @@
 function mergeSort(arr: number[]): number[] {
   const n = arr.length;
-  function helper(nums: number[]): number[] {
-    const length = nums.length;
-    if (length <= 1) return nums;
+  function helper(start: number, end: number) {
+    if (start >= end) return;
 
-    const mid = Math.floor(length / 2);
-    const left = helper(nums.slice(0, mid));
-    const right = helper(nums.slice(mid));
+    const mid = Math.floor((start + end) / 2);
+    helper(start, mid);
+    helper(mid + 1, end);
 
-    return merge(left, right);
+    merge(start, mid, end);
   }
 
-  function merge(left: number[], right: number[]): number[] {
-    let i = 0;
-    let j = 0;
+  function merge(start: number, mid: number, end: number) {
+    let i = start;
+    let j = mid + 1;
     let k = 0;
 
     const newArr: number[] = [];
-    while (i < left.length && j < right.length) {
-      if (left[i] < right[j]) {
-        newArr[k++] = left[i++];
-      } else newArr[k++] = right[j++];
+    while (i <= mid && j <= end) {
+      if (arr[i] < arr[j]) {
+        newArr[k++] = arr[i++];
+      } else newArr[k++] = arr[j++];
     }
-    // return [...newArr, ...left.slice(i), ...right.slice(j)];
-    
-    while (i < left.length) {
-      newArr[k++] = left[i++];
+
+    while (i <= mid) {
+      newArr[k++] = arr[i++];
     }
-    while (j < right.length) {
-      newArr[k++] = left[j++];
+    while (j <= end) {
+      newArr[k++] = arr[j++];
     }
-    return newArr;
+
+    for (let l = 0; l < newArr.length; l++) {
+      arr[start + l] = newArr[l];
+    }
   }
-  return helper(arr);
+  helper(0, n - 1);
+  return arr;
 }
 
 console.log("🚀 ~ mergeSort:", mergeSort([5, 4, 3, 2, 1]));
